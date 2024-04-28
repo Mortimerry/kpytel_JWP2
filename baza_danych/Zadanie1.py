@@ -23,6 +23,7 @@ result_proxy = connection.execute(pd1)
 results1 = result_proxy.fetchall()
 print(results1)
 
+
 #Podpunkt 2
 
 pd2 = text('SELECT state, sum(pop2000) as Populacja2000, sum(pop2008) as Populacja2008 FROM census WHERE state = "Alaska" or state = "New York" GROUP BY state')

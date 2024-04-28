@@ -5,6 +5,7 @@ app = Flask(__name__)
 def hello_flask():
     return "<p>"'Witaj w mojej aplikacji Flask!'"</p>"
 
+
 @app.route('/about')
 def show_blog():
    return "<p>"'Zaprogramowano przez Kamila.'"</p>"

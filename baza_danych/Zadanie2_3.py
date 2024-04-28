@@ -47,6 +47,7 @@ class Student(Base):
 Base.metadata.create_all(engine)
 
 
+
 with Session(engine) as session:
     new_student1 = Student(name="Jan Kowalski", age=30, grade=4.0)
     new_student2 = Student(name="Jan Nowak", age=25, grade=3.0)
