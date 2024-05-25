@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task List</title>
+</head>
+<body>
+    <h1>Task List</h1>
+
+    <form action="{{ url_for('addTask') }}" method="post">
+        <input type="text" name="name" placeholder="New task" required>
+        <button type="submit">Add</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.name }}
+                <a href="{{ url_for('deleteTask', task_id=task.id) }}">Delete</a>
+                <button class="btn-open-popup" onclick="editData()">Edit
+                </button>
+                <div id="popupOverlay"
+                     class="overlay-container">
+                    <div class="popup-box">
+                        <h2 style="color: green;">Popup Form</h2>
+                        <form class="form-container">
+                            <label class="form-label"
+                                for="name">
+                            Task:
+                            </label>
+                        <input class="form-input" type="text"
+                       placeholder="Enter Task"
+                       id="name" name="name" required>
+                        <button class="btn-submit"
+                        type="submit">
+                        Submit
+                        </button>
+                        </form>
+            <button class="btn-close-popup"
+                    onclick="editData()">Close
+              </button>
+        </div>
+    </div>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
