@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models import db, Task
+import time
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///teachers.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 db.init_app(app)
 
 @app.route('/')
@@ -17,7 +19,7 @@ def addTask():
         new_task= Task(name=name)
         db.session.add(new_task)
         db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for("index"))
 
 @app.route('/delete/<int:task_id>')
 def deleteTask(task_id):
@@ -27,13 +29,14 @@ def deleteTask(task_id):
         db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/edit/<int:task_id>')
+@app.route("/edit/<int:task_id>", methods=["POST"])
 def editTask(task_id):
     task = Task.query.filter_by(id=task_id).first()
-    if task:
-        task.name = ''
+    updated_task = request.form.get("name")
+    if updated_task:
+        task.name = updated_task
         db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for("index"))
 
 if __name__ == '__main__':
     with app.app_context():

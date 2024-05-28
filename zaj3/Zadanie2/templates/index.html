@@ -2,46 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='static.js') }}"></script>
 </head>
 <body>
     <h1>Task List</h1>
-
-    <form action="{{ url_for('addTask') }}" method="post">
-        <input type="text" name="name" placeholder="New task" required>
-        <button type="submit">Add</button>
+    <form id="task-form">
+        <input type="text" id="task-input" placeholder="Enter a new task">
+        <button type="submit">Add Task</button>
     </form>
-    <ul>
+    <ul id="task-list">
         {% for task in tasks %}
-            <li>
-                {{ task.name }}
-                <a href="{{ url_for('deleteTask', task_id=task.id) }}">Delete</a>
-                <button class="btn-open-popup" onclick="editData()">Edit
-                </button>
-                <div id="popupOverlay"
-                     class="overlay-container">
-                    <div class="popup-box">
-                        <h2 style="color: green;">Popup Form</h2>
-                        <form class="form-container">
-                            <label class="form-label"
-                                for="name">
-                            Task:
-                            </label>
-                        <input class="form-input" type="text"
-                       placeholder="Enter Task"
-                       id="name" name="name" required>
-                        <button class="btn-submit"
-                        type="submit">
-                        Submit
-                        </button>
-                        </form>
-            <button class="btn-close-popup"
-                    onclick="editData()">Close
-              </button>
-        </div>
-    </div>
+            <li data-id="{{ task.id }}">
+                <span>{{ task.name }}</span>
+                <a href="#" class="delete-task">Delete</a>
+                <a href="#" class="edit-task">Edit</a>
             </li>
         {% endfor %}
     </ul>
+
 </body>
 </html>
